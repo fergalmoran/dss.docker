@@ -1,0 +1,3 @@
+[submodule "dss.api"]
+	path = dss.api
+	url = git@github.com:fergalmoran/dss.api.git
