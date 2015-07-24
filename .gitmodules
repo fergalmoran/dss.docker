@@ -1,3 +1,6 @@
 [submodule "dss.api"]
 	path = dss.api
 	url = git@github.com:fergalmoran/dss.api.git
+[submodule "dss.web"]
+	path = dss.web
+	url = git@github.com:fergalmoran/dss.web.git

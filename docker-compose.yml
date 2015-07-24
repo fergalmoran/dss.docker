@@ -22,3 +22,23 @@ data:
   volumes:
     - /var/lib/postgresql
   command: /bin/true
+
+web:
+    restart: always
+    build: ./dss.web
+    links:
+        - "redis:redis"
+    ports:
+        - "8080:8080"
+
+redis:
+    image: redis
+
+nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+        - "81:81"
+    links:
+        - "api:api"
+        - "web:web"
