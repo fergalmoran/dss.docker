@@ -4,7 +4,8 @@ api:
     ports:
         - "8000:8000"
     links:
-        - postgres:postgres
+        - "postgres:postgres"
+        - "redis:redis"
     env_file: .env
     #command: /usr/local/bin/gunicorn dss.wsgi:application -w 2 -b :8000
     command: python manage.py runserver_plus 0.0.0.0:8000
