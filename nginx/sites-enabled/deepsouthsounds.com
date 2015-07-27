@@ -1,6 +1,8 @@
 server{
     listen 81;
     server_name www.deepsouthsounds.com ext-test.deepsouthsounds.com deepsouthsounds.com;
+    
+    client_max_body_size 250M;
 
     location /api {
         proxy_pass http://api:8000;
