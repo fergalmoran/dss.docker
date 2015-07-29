@@ -3,6 +3,7 @@ rabbitmq:
     environment:
         - RABBITMQ_PASS=wZ59kFTJZN8YQ
     ports: 
+        - "4369:4369"
         - "5672:5672"
         - "15672:15672"
 
@@ -36,7 +37,6 @@ celery:
     #command: python manage.py celeryd
 
 api:
-    restart: always
     build: ./dss.api
     volumes:
         - /files
