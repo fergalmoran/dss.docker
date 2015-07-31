@@ -11,6 +11,10 @@ server{
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }    
 
+    location /media {
+        alias /files/media;
+    }
+
     location / {
         proxy_pass http://web:8080;
         proxy_set_header Host $host;
