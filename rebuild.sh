@@ -1,3 +1,2 @@
-find -name *.pyc | xargs rm
-docker-compose build
-docker-compose up
+export PATH=$PATH:/mnt/bin/
+git pull && cd dss.web && git pull && cd .. && cd dss.api && git pull && cd .. && docker-compose build && docker-compose up $1
