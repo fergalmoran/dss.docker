@@ -65,5 +65,5 @@ nginx:
     links:
         - "api:api"
         - "web:web"
-    #volumes_from:
-    #    - api
+    volumes_from:
+        - api
