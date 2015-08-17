@@ -61,8 +61,9 @@ nginx:
     build: ./nginx/
     ports:
         - "81:81"
+        - "444:444"
     links:
         - "api:api"
         - "web:web"
-    volumes_from:
-        - api
+    #volumes_from:
+    #    - api

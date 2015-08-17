@@ -1,8 +1,15 @@
 server {
     listen 81;
+}
 
+server{
+    listen 444;
     server_name api.deepsouthsounds.com api-test.deepsouthsounds.com;
     client_max_body_size 25M;
+
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/dss.crt;
+    ssl_certificate_key /etc/nginx/ssl/dss.key;
 
     location / {
         proxy_pass http://api:8000;
