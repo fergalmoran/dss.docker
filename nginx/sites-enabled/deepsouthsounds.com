@@ -1,19 +1,11 @@
 server {
     listen 81;
-}
-
-server{
-    listen 444;
     server_name api.deepsouthsounds.com api-test.deepsouthsounds.com;
     client_max_body_size 0;
 
     location /assets/grappelli {
 	alias /usr/local/lib/python2.7/site-packages/grappelli/static/grappelli;
     }
-
-    ssl on;
-    ssl_certificate /etc/nginx/ssl/dss.crt;
-    ssl_certificate_key /etc/nginx/ssl/dss.key;
 
     location / {
         proxy_pass http://api:8000;
@@ -24,9 +16,18 @@ server{
 }
 
 server {
-    listen 81;
+    listen 80;
+    listen 443 default ssl;
+
     server_name www.deepsouthsounds.com ext-test.deepsouthsounds.com deepsouthsounds.com;
-    
+
+    ssl_certificate /etc/nginx/ssl/dss.crt;
+    ssl_certificate_key /etc/nginx/ssl/dss.key;
+
+    #if ($ssl_protocol = "") {
+    #   rewrite ^ https://$server_name$request_uri? permanent;
+    #}
+
     client_max_body_size 250M;
 
     location /media {
