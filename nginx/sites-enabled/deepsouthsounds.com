@@ -1,5 +1,5 @@
 server {
-    listen 81;
+    listen 80;
     server_name api.deepsouthsounds.com api-test.deepsouthsounds.com;
     client_max_body_size 0;
 
