@@ -9,7 +9,6 @@ rabbitmq:
 
 postgres:
     restart: always
-    build: ./postgres
     image: postgres:latest
     volumes_from:
         - data
