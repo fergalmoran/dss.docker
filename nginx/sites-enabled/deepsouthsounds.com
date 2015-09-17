@@ -16,10 +16,16 @@ server {
 }
 
 server {
+	listen 80;
+	server_name deepsouthsounds.com;
+	return 301 http://www.deepsouthsounds.com$request_uri;
+}
+
+server {
     listen 80;
     listen 443 default ssl;
 
-    server_name www.deepsouthsounds.com ext-test.deepsouthsounds.com deepsouthsounds.com;
+    server_name www.deepsouthsounds.com ext-test.deepsouthsounds.com;
 
     ssl_certificate /etc/nginx/ssl/dss.crt;
     ssl_certificate_key /etc/nginx/ssl/dss.key;
