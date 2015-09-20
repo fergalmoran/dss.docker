@@ -1,3 +1,9 @@
+radio:
+    build: ./radio
+    command: supervisord -n -c /etc/supervisord.conf
+    ports:
+        - "8999:8999"
+
 rabbitmq:
     image: tutum/rabbitmq
     environment:
