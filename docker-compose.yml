@@ -2,7 +2,7 @@ radio:
     build: ./radio
     command: supervisord -n -c /etc/supervisord.conf
     ports:
-        - "8531:8531"
+        - "8351:8351"
 
 rabbitmq:
     image: tutum/rabbitmq
