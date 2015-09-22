@@ -4,3 +4,6 @@
 [submodule "dss.web"]
 	path = dss.web
 	url = git@github.com:fergalmoran/dss.web.git
+[submodule "dss.radio"]
+	path = dss.radio
+	url = git@github.com:fergalmoran/dss.radio.git
