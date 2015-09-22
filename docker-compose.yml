@@ -1,8 +1,9 @@
 radio:
-    build: ./radio
+    build: ./dss.radio
     command: supervisord -n -c /etc/supervisord.conf
     ports:
         - "8351:8351"
+        - "8888:8888"
 
 rabbitmq:
     image: tutum/rabbitmq
