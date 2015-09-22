@@ -1,4 +1,4 @@
 .env
-dss.web/
-dss.api/
-dss.radio/
+dss.web
+dss.api
+dss.radio
