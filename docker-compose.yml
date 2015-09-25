@@ -65,7 +65,6 @@ nginx:
     links:
         - "api:api"
         - "web:web"
-        - "radio:radio"
     volumes_from:
         - api
 icecast:
