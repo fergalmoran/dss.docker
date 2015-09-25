@@ -41,7 +41,7 @@ api:
     volumes:
         - /files
     ports:
-        - "8000:8000"
+        - "8001:8001"
     links:
         - "postgres:postgres"
         - "redis:redis"
