@@ -65,6 +65,7 @@ nginx:
     links:
         - "api:api"
         - "web:web"
+        - "icecast:icecast"
     volumes_from:
         - api
 icecast:
