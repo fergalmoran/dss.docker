@@ -3,7 +3,7 @@ server {
     server_name radio.deepsouthsounds.com;
     
     location / {
-        proxy_pass http://radio:8351;
+        proxy_pass http://icecast:8000;
         proxy_set_header Host $host;    
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -54,8 +54,8 @@ server {
 
     location / {
         proxy_pass http://web:8080;
-	proxy_set_header Upgrade $http_upgrade;
-	proxy_set_header Connection "upgrade";
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
