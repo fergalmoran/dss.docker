@@ -69,13 +69,13 @@ nginx:
     volumes_from:
         - api
 icecast:
-    image: moul/icecast:latest
+    build: ./radio/
     volumes:
         - logs:/var/log/icecast2
-        - /etc/localtime:/etc/localtime:ro 
+        - /etc/localtime:/etc/localtime:ro
     environment:
         - ICECAST_SOURCE_PASSWORD=RDzNlgqmj67vk
-        - ICECAST_ADMIN_PASSWORD=CrVuP5evoJZ0.
+        - ICECAST_ADMIN_PASSWORD=CrVuP5evoJZ0
         - ICECAST_RELAY_PASSWORD=9PmUbI1mLne9o
     ports:
         - 8000:8000
