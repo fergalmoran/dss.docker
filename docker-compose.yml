@@ -71,7 +71,7 @@ nginx:
 icecast:
     image: moul/icecast:latest
     volumes:
-        - logs:/var/log/icecast2
+        - ./logs:/var/log/icecast2
         - /etc/localtime:/etc/localtime:ro 
     environment:
         - ICECAST_SOURCE_PASSWORD=RDzNlgqmj67vk
@@ -79,3 +79,9 @@ icecast:
         - ICECAST_RELAY_PASSWORD=9PmUbI1mLne9o
     ports:
         - 8000:8000
+radio:
+    build: dss.radio/
+    ports:
+        - "8888:8888"
+    environment:
+        - ICE_PASSWORD={$ICE_PASSWORD}
