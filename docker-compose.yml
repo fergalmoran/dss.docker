@@ -83,5 +83,3 @@ radio:
     build: dss.radio/
     ports:
         - "8888:8888"
-    environment:
-        - ICE_PASSWORD={$ICE_PASSWORD}
