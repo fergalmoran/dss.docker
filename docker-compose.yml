@@ -83,3 +83,6 @@ radio:
     build: dss.radio/
     ports:
         - "8888:8888"
+    links:
+        - "icecast:icecast"
+
