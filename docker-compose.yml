@@ -66,6 +66,7 @@ nginx:
         - "api:api"
         - "web:web"
         - "icecast:icecast"
+        - "radio:radio"
     volumes_from:
         - api
 icecast:
@@ -85,4 +86,5 @@ radio:
         - "8888:8888"
     links:
         - "icecast:icecast"
+        - "api:api"
 
