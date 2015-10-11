@@ -1,5 +1,7 @@
-FROM ubuntu:wily
-MAINTAINER Fergal Moran "Ferg@lMoran.me"
+FROM ubuntu:trusty
+
+MAINTAINER Manfred Touron "m@42.am"
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -qq -y update && \
@@ -9,6 +11,10 @@ RUN apt-get -qq -y update && \
 RUN easy_install supervisor && \
     easy_install supervisor-stdout
 
-ADD icecast2/icecast.xml /etc/icecast2/
-ADD default/icecast2 /etc/default/
-ADD supervisord.conf /etc/supervisord.conf
+CMD ["/start.sh"]
+EXPOSE 8000
+VOLUME ["/config", "/var/log/icecast2", "/etc/icecast2"]
+
+ADD ./start.sh /start.sh
+ADD ./etc /etc
+RUN chown -R icecast2 /etc/icecast2
