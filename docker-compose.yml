@@ -34,7 +34,6 @@ celery:
         - "redis:redis"
         - "rabbitmq:rabbitmq"
     command: ./run_celery.sh
-    #command: python manage.py celeryd
 
 api:
     build: ./dss.api
