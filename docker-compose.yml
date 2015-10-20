@@ -44,6 +44,8 @@ api:
     links:
         - "postgres:postgres"
         - "redis:redis"
+        - "icecast:icecast"
+        - "radio:radio"
         - "rabbitmq:rabbitmq"
     command: ./run_web.sh
 
