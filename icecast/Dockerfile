@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-MAINTAINER Manfred Touron "m@42.am"
+MAINTAINER Fergal Moran "Ferg@lMoran.me"
 
 ENV DEBIAN_FRONTEND noninteractive
 
