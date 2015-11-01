@@ -57,7 +57,7 @@ api:
 web:
     image: fergalmoran/dss.web
     #build: ./dss.web
-    env_file: 
+    env_file:
         - ./web_env
     restart: always
     links:
@@ -76,7 +76,10 @@ icecast:
     ports:
         - 8000:8000
 radio:
-    build: dss.radio/
+    image: fergalmoran/dss.radio
+    env_file:
+        - ./radio_env
+    #build: dss.radio/
     ports:
         - "8888:8888"
     links:
