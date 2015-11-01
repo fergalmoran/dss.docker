@@ -92,3 +92,5 @@ nginx:
         - "web:web"
         - "icecast:icecast"
         - "radio:radio"
+    volumes_from:
+        - api
