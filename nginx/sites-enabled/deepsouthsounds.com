@@ -21,10 +21,14 @@ server {
     listen 80;
     server_name api.deepsouthsounds.com api-test.deepsouthsounds.com;
     client_max_body_size 0;
-
+    
     location /assets/grappelli {
 	alias /usr/local/lib/python2.7/site-packages/grappelli/static/grappelli;
     }
+    
+   location /assets {
+        alias /files/static;
+   }
 
     location / {
         proxy_pass http://api:8001;
@@ -45,6 +49,7 @@ server {
     listen 443 default ssl;
 
     server_name www.deepsouthsounds.com ext-test.deepsouthsounds.com;
+    root /files/static/;
 
     ssl_certificate /etc/nginx/ssl/dss.crt;
     ssl_certificate_key /etc/nginx/ssl/dss.key;
@@ -55,11 +60,20 @@ server {
 
     client_max_body_size 250M;
 
+    location ~ /\.(eot|otf|ttf|woff)$ {
+        add_header Access-Control-Allow-Origin *;
+    }
+
     location /media {
         alias /files/media;
     }
-
     location / {
+        #if ($request_filename ~* ^.*?/([^/]*?)$) {
+        #    set $filename $1; 
+        #}
+        #if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$){
+        #    add_header Access-Control-Allow-Origin *;
+        #}
         proxy_pass http://web:8080;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

@@ -11,7 +11,7 @@ redis:
     image: redis
 
 postgres:
-    restart: always
+    restart: "always"
     image: postgres:latest
     volumes_from:
         - data
@@ -19,7 +19,7 @@ postgres:
         - "5432:5432"
 
 data:
-  restart: no
+  restart: "no"
   image: postgres:latest
   volumes:
     - /var/lib/postgresql
@@ -56,7 +56,7 @@ web:
     image: fergalmoran/dss.web
     env_file:
         - ./web_env
-    restart: always
+    restart: "always"
     links:
         - "redis:redis"
     ports:
@@ -82,7 +82,7 @@ radio:
         - "icecast:icecast"
         - "api:api"
 nginx:
-    restart: always
+    restart: "always"
     build: ./nginx/
     ports:
         - "80:80"
