@@ -8,3 +8,8 @@ web_env
 radio_env
 
 logs/
+
+start-server.sh
+start_local.sh
+stop_local.sh
+
