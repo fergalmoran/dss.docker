@@ -54,9 +54,9 @@ server {
     ssl_certificate /etc/nginx/ssl/dss.crt;
     ssl_certificate_key /etc/nginx/ssl/dss.key;
 
-    #if ($ssl_protocol = "") {
-    #   rewrite ^ https://$server_name$request_uri? permanent;
-    #}
+    if ($ssl_protocol = "") {
+       rewrite ^ https://$server_name$request_uri? permanent;
+    }
 
     client_max_body_size 250M;
 
@@ -68,12 +68,12 @@ server {
         alias /files/media;
     }
     location / {
-        #if ($request_filename ~* ^.*?/([^/]*?)$) {
-        #    set $filename $1; 
-        #}
-        #if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$){
-        #    add_header Access-Control-Allow-Origin *;
-        #}
+        if ($request_filename ~* ^.*?/([^/]*?)$) {
+            set $filename $1; 
+        }
+        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$){
+            add_header Access-Control-Allow-Origin *;
+        }
         proxy_pass http://web:8080;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
