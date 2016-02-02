@@ -1,3 +1,18 @@
+data:
+  restart: "no"
+  image: postgres:9.4
+  volumes:
+    - /var/lib/postgresql
+  command: /bin/true
+
+postgres:
+    restart: "always"
+    image: postgres:9.4
+    volumes_from:
+        - data
+    ports:
+        - "5432:5432"
+
 rabbitmq:
     image: tutum/rabbitmq
     environment:
@@ -10,20 +25,20 @@ rabbitmq:
 redis:
     image: redis
 
-postgres:
-    restart: "always"
-    image: postgres:latest
-    volumes_from:
-        - data
-    ports:
-        - "5432:5432"
-
-data:
-  restart: "no"
-  image: postgres:latest
-  volumes:
-    - /var/lib/postgresql
-  command: /bin/true
+api:
+   image: fergalmoran/dss.api
+   volumes:
+     - /files
+   ports:
+     - "8001:8001"
+   env_file:
+       - ./api_env
+   links:
+       - postgres
+       - redis
+#       - icecast
+       - rabbitmq
+   command: ./run_web.sh
 
 celery:
     image: fergalmoran/dss.api
@@ -37,21 +52,6 @@ celery:
         - "rabbitmq:rabbitmq"
     command: ./run_celery.sh
 
-api:
-    image: fergalmoran/dss.api
-    volumes:
-        - /files
-    ports:
-        - "8001:8001"
-    env_file:
-        - ./api_env
-    links:
-        - "postgres:postgres"
-        - "redis:redis"
-        - "icecast:icecast"
-        - "rabbitmq:rabbitmq"
-    command: ./run_web.sh
-
 web:
     image: fergalmoran/dss.web
     env_file:
@@ -61,26 +61,29 @@ web:
         - "redis:redis"
     ports:
         - "8080:8080"
-icecast:
-    build: ./icecast/
-    volumes:
-        - ./logs:/var/log/icecast2
-        - /etc/localtime:/etc/localtime:ro
-    environment:
-        - ICECAST_SOURCE_PASSWORD=RDzNlgqmj67vk
-        - ICECAST_ADMIN_PASSWORD=CrVuP5evoJZ0
-        - ICECAST_RELAY_PASSWORD=9PmUbI1mLne9o
-    ports:
-        - 8000:8000
-radio:
-    image: fergalmoran/dss.radio
-    env_file:
-        - ./radio_env
-    ports:
-        - "8888:8888"
-    links:
-        - "icecast:icecast"
-        - "api:api"
+
+#icecast:
+#    build: ./icecast/
+#    volumes:
+#        - ./logs:/var/log/icecast2
+#        - /etc/localtime:/etc/localtime:ro
+#    environment:
+#        - ICECAST_SOURCE_PASSWORD=RDzNlgqmj67vk
+#        - ICECAST_ADMIN_PASSWORD=CrVuP5evoJZ0
+#        - ICECAST_RELAY_PASSWORD=9PmUbI1mLne9o
+#    ports:
+#        - 8000:8000
+
+#radio:
+#    image: fergalmoran/dss.radio
+#    env_file:
+#        - ./radio_env
+#    ports:
+#        - "8888:8888"
+#    links:
+#        - "icecast:icecast"
+#        - "api:api"
+
 nginx:
     restart: "always"
     build: ./nginx/
@@ -90,7 +93,8 @@ nginx:
     links:
         - "api:api"
         - "web:web"
-        - "icecast:icecast"
-        - "radio:radio"
+ #       - "icecast:icecast"
+ #       - "radio:radio"
     volumes_from:
         - api
+
