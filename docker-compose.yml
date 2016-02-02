@@ -40,6 +40,33 @@ api:
        - rabbitmq
    command: ./run_web.sh
 
+icecast:
+    build: ./icecast/
+    volumes:
+        - ./logs:/var/log/icecast2
+        - /etc/localtime:/etc/localtime:ro
+    environment:
+        - ICECAST_SOURCE_PASSWORD=RDzNlgqmj67vk
+        - ICECAST_ADMIN_PASSWORD=CrVuP5evoJZ0
+        - ICECAST_RELAY_PASSWORD=9PmUbI1mLne9o
+    ports:
+        - 8000:8000
+
+api:
+    image: fergalmoran/dss.api
+    volumes:
+        - /files
+    ports:
+        - "8001:8001"
+    env_file:
+        - ./api_env
+    links:
+        - "postgres:postgres"
+        - "redis:redis"
+        - "icecast:icecast"
+        - "rabbitmq:rabbitmq"
+    command: ./run_web.sh
+
 celery:
     image: fergalmoran/dss.api
     env_file:

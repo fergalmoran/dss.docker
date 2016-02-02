@@ -19,11 +19,20 @@
 
 server {
     listen 80;
+    listen 443 default ssl;
+
     server_name api.deepsouthsounds.com api-test.deepsouthsounds.com;
     client_max_body_size 0;
     
+    ssl_certificate /etc/nginx/ssl/api.crt;
+    ssl_certificate_key /etc/nginx/ssl/api.key;
+
+    if ($ssl_protocol = "") {
+       rewrite ^ https://$server_name$request_uri? permanent;
+    }
+
     location /assets/grappelli {
-	alias /usr/local/lib/python2.7/site-packages/grappelli/static/grappelli;
+        alias /usr/local/lib/python2.7/site-packages/grappelli/static/grappelli;
     }
     
    location /assets {
