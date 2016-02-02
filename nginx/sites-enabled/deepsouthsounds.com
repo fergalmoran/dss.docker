@@ -19,7 +19,7 @@
 
 server {
     listen 80;
-    listen 443 default ssl;
+    listen 443 ssl;
 
     server_name api.deepsouthsounds.com api-test.deepsouthsounds.com;
     client_max_body_size 0;
