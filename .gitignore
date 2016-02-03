@@ -3,6 +3,8 @@ dss.web
 dss.api
 dss.radio
 
+*.swp
+
 api_env
 web_env
 radio_env
