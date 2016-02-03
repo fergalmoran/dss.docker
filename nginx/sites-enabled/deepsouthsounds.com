@@ -47,11 +47,11 @@ server {
     }
 }
 
-server {
-	listen 80;
-	server_name deepsouthsounds.com;
-	return 301 http://www.deepsouthsounds.com$request_uri;
-}
+#server {
+#	listen 80;
+#	server_name deepsouthsounds.com;
+#	return 301 https://www.deepsouthsounds.com$request_uri;
+#}
 
 server {
     listen 80;
