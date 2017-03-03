@@ -5,8 +5,11 @@ server {
     server_name deepsouthsounds.com ext-test.deepsouthsounds.com www.deepsouthsounds.com;
     root /files/static/;
 
-    ssl_certificate /etc/nginx/ssl/dss.crt;
-    ssl_certificate_key /etc/nginx/ssl/dss.key;
+    ssl_certificate     /etc/letsencrypt/live/deepsouthsounds.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/deepsouthsounds.com/privkey.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
 
     if ($ssl_protocol = "") {
        rewrite ^ https://$server_name$request_uri? permanent;
@@ -25,6 +28,12 @@ server {
     location /media {
         alias /files/media;
     }
+    location /assets {
+        alias /app/dist/public/assets;
+    }
+    location /images {
+        alias /app/dist/public/assets/images;
+    }
     location / {
         if ($request_filename ~* ^.*?/([^/]*?)$) {
             set $filename $1; 
@@ -32,7 +41,7 @@ server {
         if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$){
             add_header Access-Control-Allow-Origin *;
         }
-        proxy_pass http://web:8080;
+        proxy_pass http://web:8088;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
@@ -47,8 +56,11 @@ server {
     server_name api.deepsouthsounds.com api-test.deepsouthsounds.com;
     client_max_body_size 0;
     
-    ssl_certificate /etc/nginx/ssl/api.crt;
-    ssl_certificate_key /etc/nginx/ssl/api.key;
+    ssl_certificate     /etc/letsencrypt/live/api.deepsouthsounds.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.deepsouthsounds.com/privkey.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
 
     if ($ssl_protocol = "") {
        rewrite ^ https://$server_name$request_uri? permanent;
